@@ -1,18 +1,11 @@
 import React, { Component } from 'react';
 
 class AddTodo extends Component {
-  constructor (props) {
-    super(props)
-
-    this.state = {
-      text: ''
-    }
-  }
 
   render() {
     return (
       <div>
-        <input value={ this.state.text } onChange={ this.onTextChange }/>
+        <input value={ this.props.text } onChange={ this.onTextChange }/>
         <button onClick={ this.handlerClick }>add todo</button>
       </div>
     );
@@ -20,13 +13,11 @@ class AddTodo extends Component {
 
   onTextChange = (e) => {
     const value = e.target.value
-    this.setState({
-      text: value
-    })
+    this.props.setTodoText(value)
   }
 
   handlerClick = () => {
-    this.props.addTodo(this.state.text)
+    this.props.addTodo(this.props.text)
   }
 }
 
