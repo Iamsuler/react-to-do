@@ -4,8 +4,44 @@ import {
   SET_VISIBILITY_FILTER,
   ADD_TODO,
   TOGGLE_TODO,
-  SET_TODO_TEXT
+  SET_TODO_TEXT,
+  FETCH_TODOS_FAIL,
+  FETCH_TODOS_SUCCESS,
+  FETCH_TODOS_REQUEST
 } from './action'
+
+const initTodos = {
+  isFetch: false,
+  error: '',
+  data: []
+}
+
+function fetchTodos (state = initTodos, action) {
+  switch (action.type) {
+    case FETCH_TODOS_REQUEST:
+      return {
+        ...state,
+        isFetch: true
+      }
+    case FETCH_TODOS_SUCCESS:
+      return {
+        ...state,
+        isFetch: false,
+        data: action.data
+      }
+    case FETCH_TODOS_FAIL:
+      return {
+        ...state,
+        isFetch: false,
+        error: action.error
+      }
+    default:
+      return {
+        ...state,
+        data: todos(state.data, action)
+      }
+  }
+}
 
 function todos (state = [], action) {
   switch (action.type) {
@@ -37,7 +73,7 @@ function text (state = '', action) {
 // }
 
 const todoApp = combineReducers({
-  todos,
+  todos: fetchTodos,
   filter,
   text
 })
