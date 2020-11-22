@@ -1,9 +1,10 @@
 import { connect } from 'react-redux'
 import { setVisibilityFilter } from '../store/action'
 import Footer from '../components/Footer'
+import { getFilter } from '../selectors/index'
 
 const mapStateToProps = state => ({
-  filter: state.filter
+  filter: getFilter(state)
 })
 
 const mapDispatchToProps = dispatch => ({
