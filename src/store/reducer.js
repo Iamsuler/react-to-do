@@ -1,4 +1,5 @@
-import { combineReducers } from 'redux'
+import { combineReducers } from 'redux-immutable'
+import Immutable from 'immutable'
 import {
   VISIBILITY_FILTERS,
   SET_VISIBILITY_FILTER,
@@ -16,42 +17,37 @@ const initTodos = {
   data: []
 }
 
-function fetchTodos (state = initTodos, action) {
+function fetchTodos (state = Immutable.fromJS(initTodos), action) {
   switch (action.type) {
     case FETCH_TODOS_REQUEST:
-      return {
-        ...state,
-        isFetch: true
-      }
+      return state.set('isFetch', true)
     case FETCH_TODOS_SUCCESS:
-      return {
-        ...state,
+      return state.merge({
         isFetch: false,
-        data: action.data
-      }
+        data: Immutable.fromJS(action.data)
+      })
     case FETCH_TODOS_FAIL:
-      return {
-        ...state,
+      return state.merge({
         isFetch: false,
         error: action.error
-      }
+      })
     default:
-      return {
-        ...state,
-        data: todos(state.data, action)
-      }
+      const data = state.get('data')
+      return state.set('data', todos(data, action))
   }
 }
 
-function todos (state = [], action) {
+function todos (state = Immutable.fromJS([]), action) {
   switch (action.type) {
     case ADD_TODO:
-      return [
-        { text: action.text, id: action.id, completed: false },
-        ...state
-      ]
+      const newTodo = Immutable.fromJS({ text: action.text, id: action.id, completed: false })
+      return state.unshift(newTodo)
     case TOGGLE_TODO:
-      return state.map(todo => todo.id === action.id ? { ...todo, completed: !todo.completed } : todo)
+      return state.map(todo =>
+        todo.get('id') === action.id
+          ? todo.set('completed', !todo.get('completed'))
+          : todo
+      )
     default:
       return state
   }
