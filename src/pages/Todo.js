@@ -3,8 +3,7 @@ import AddTodoContainer from '../containers/AddTodoContainer'
 import FooterContainer from '../containers/FooterContainer'
 import TodoListContainer from '../containers/TodoListContainer'
 
-class App extends Component {
-
+class Todo extends Component {
   render() {
     return (
       <div>
@@ -16,4 +15,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default Todo;
