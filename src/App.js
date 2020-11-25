@@ -23,7 +23,9 @@ class App extends Component {
               path="/contact"
               children={ (props) => <div>{ props.match ? 'active' : 'inactive' }</div> }
             />
-            <Route path="/user/:id" component={ User }></Route>
+            {/* 一切皆组件，离散路由 */}
+            <Route path="/user" component={ User }></Route>
+            {/* <Route path="/user/:id" component={ User }></Route> */}
             {/* <Route path="/" component={ Home }></Route> */}
           {/* </Switch> */}
         </div>

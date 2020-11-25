@@ -9,7 +9,8 @@ class Nav extends Component {
         <li><Link to="/todo">todo</Link></li>
         <li><Link to="/about">about</Link></li>
         <li><Link to="/contact">contact</Link></li>
-        <li><Link to="/user/1">user</Link></li>
+        <li><Link to="/user/1">user1</Link></li>
+        <li><Link to="/user/2">user2</Link></li>
       </ul>
     );
   }
