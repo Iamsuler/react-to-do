@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Todo from './pages/Todo'
 import Home from './pages/Home'
 import About from './pages/About'
-import Contact from './pages/Contact'
+// import Contact from './pages/Contact'
 import User from './pages/User'
 import Nav from './components/Nav'
 
@@ -15,7 +15,7 @@ class App extends Component {
       <Router>
         <div>
           <Nav />
-          {/* <Switch> */}
+          <Switch>
             <Route path="/" exact component={ Home }></Route>
             <Route path="/todo" component={ Todo }></Route>
             <Route path="/about" render={ (props) => <About { ...props }/> }></Route>
@@ -27,7 +27,7 @@ class App extends Component {
             <Route path="/user" component={ User }></Route>
             {/* <Route path="/user/:id" component={ User }></Route> */}
             {/* <Route path="/" component={ Home }></Route> */}
-          {/* </Switch> */}
+          </Switch>
         </div>
       </Router>
     );
