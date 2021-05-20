@@ -31,18 +31,20 @@ export const addTodo = text => ({ type: ADD_TODO, id: nextTodoId++, text })
 export const toggleTodo = id => ({ type: TOGGLE_TODO, id })
 export const setVisibilityFilter = filter => ({ type: SET_VISIBILITY_FILTER, filter })
 export const setTodoText = text => ({ type: SET_TODO_TEXT, text })
-export const fetchTodos = dispatch => {
-  dispatch(fetchTodosRequest())
+export const fetchTodos = () => {
+  return (dispatch) => {
+    dispatch(fetchTodosRequest())
 
-  fetch('./mock/todos.json')
-    .then(
-      response => response.json(),
-      error => {
-        dispatch(fetchTodosFail(error))
-        console.error('An error occurred: ' + error)
-      }
-    )
-    .then(data => {
-      dispatch(fetchTodosSuccess(data))
-    })
+    fetch('./mock/todos.json')
+      .then(
+        response => response.json(),
+        error => {
+          dispatch(fetchTodosFail(error))
+          console.error('An error occurred: ' + error)
+        }
+      )
+      .then(data => {
+        dispatch(fetchTodosSuccess(data))
+      })
+  }
 }
